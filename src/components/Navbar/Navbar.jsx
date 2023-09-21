@@ -22,6 +22,7 @@ function Navbar() {
         }
 
         setuser(JSON.parse(localStorage.getItem('profile')))
+        // eslint-disable-next-line 
     },[location])
     const logout = ()=>{
         dispach({ type: 'LOGOUT' })

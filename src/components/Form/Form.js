@@ -23,6 +23,7 @@ function Form({ currentId, setCurrentId }) {
     },[post])
     const handleSubmit = (e)=>{
         e.preventDefault()
+        console.log(postData.selectedFile);
         if(currentId){
             dispach(updatePost(currentId, {...postData, name: user?.result?.name}))
             clear()

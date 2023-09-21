@@ -18,6 +18,7 @@ const PostDetails = () => {
 
   useEffect(()=>{
     dispach(getPost(id))
+    // eslint-disable-next-line 
   },[id])
 
 
@@ -25,6 +26,7 @@ const PostDetails = () => {
     if(post){
       dispach(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }))
     }
+    // eslint-disable-next-line 
   },[post])
 
   const openPost =  (id)=>{
@@ -75,7 +77,7 @@ const PostDetails = () => {
                     <Typography gutterBottom variant='subtitle2'>{name}</Typography>
                     <Typography gutterBottom variant='subtitle2'>{message}</Typography>
                     <Typography gutterBottom variant='subtitle1'>Likes: {likes.length}</Typography>
-                    <img src={selectedFile} width ="200px" />
+                    <img src={selectedFile} alt='Post' width ="200px" />
                   </div>
                 ))
               }

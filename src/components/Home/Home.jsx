@@ -49,9 +49,9 @@ function Home() {
 
     
 
-    // useEffect(()=>{
-    //   dispach(getPosts())
-    // },[currentId, dispach])
+    useEffect(()=>{
+      dispach(getPosts())
+    },[currentId, dispach])
   return (
     <Grow in>
         <Container maxWidth='xl'>
