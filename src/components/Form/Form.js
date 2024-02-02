@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import { TextField, Button, Typography, Paper } from '@material-ui/core'
-import FileBase from 'react-file-base64'
 import { useHistory } from 'react-router-dom'
 import useSyles from './style'
 import { useDispatch, useSelector } from 'react-redux'
+import imageCompression from 'browser-image-compression'; 
+
 import { createPost, updatePost } from '../../actions/posts'
 function Form({ currentId, setCurrentId }) {
     const dispach = useDispatch()
@@ -46,6 +47,28 @@ function Form({ currentId, setCurrentId }) {
             </Paper>
         )
     }
+    const compressImags = async function(event){
+        console.log(event.target.files[0]);
+        const imageFile = event.target.files[0]
+        const option = {
+            maxSizeMB:0.05,
+            maxWidthOrHeight:1000
+        }
+        try {
+            const compressedFile = await imageCompression(imageFile, option)
+            var reader = new FileReader()
+            reader.readAsDataURL(compressedFile)
+            reader.onload = () =>{
+                console.log(reader.result);
+                setPostData({...postData,selectedFile: reader.result})
+            }
+            reader.onerror = error => {
+                console.log("Error: ", error);
+              };
+        } catch (error) {
+                console.log(error);
+        }   
+    }
     const clear =()=>{
         setCurrentId(null)
         setPostData({
@@ -86,10 +109,11 @@ function Form({ currentId, setCurrentId }) {
             onChange={(e)=>setPostData({...postData,tags: e.target.value.split(',')})}
             />
             <div className={classes.fileInput}>
-                <FileBase
+                <input
                     type="file"
-                    multiple={false}
-                    onDone = {({base64})=>setPostData({...postData,selectedFile: base64})}
+                    accept='image/*'
+                    // onDone = {({base64})=>setPostData({...postData,selectedFile: base64})}
+                    onChange={(e) => { compressImags(e) }}
                 />
             </div>
             <Button className={classes.buttonSubmit} variant="contained" color='primary' size='large' type='submit' fullWidth>Submit</Button>

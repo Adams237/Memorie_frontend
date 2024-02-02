@@ -18,6 +18,6 @@ export const signup =(formData, history)=> async (dispach)=>{
         dispach({ type: 'AUTH', data })
         history.push('/')
     } catch (error) {
-        
+        console.log(error.response.data);
     }
 }

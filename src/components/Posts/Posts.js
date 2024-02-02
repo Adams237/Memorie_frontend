@@ -10,7 +10,6 @@ function Posts({ setCurrentId }) {
     const { posts, isLoading } = useSelector((state)=>state.posts)
     const classes = useSyles()
 
-
     if(!posts.length && !isLoading) return 'No posts'
 
   return (
