@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     borderRadius: 15,
     margin: '30px 0',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
@@ -20,12 +20,12 @@ export default makeStyles((theme) => ({
   },
   toolbar: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     width: '400px',
   },
   profile: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '400px',
   },
   userName: {

@@ -15,6 +15,7 @@ import { signin, signup } from '../../actions/auth'
 const initialState = { firstName: '', lastName:'', email:'', password:'', confirmPasswor:'' }
 function Auth() {
     const classes = useStyles()
+    const [isLoading, setIsLoading] = useState(false)
     const [isSignup, setIsSignup] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const[formData, setFormData] = useState(initialState)
@@ -23,11 +24,15 @@ function Auth() {
 
     const handleSubmit = (e)=>{
         e.preventDefault()
+        setIsLoading(true)
        if(isSignup){
             dispach(signup(formData, history))
+            setIsLoading(false)
        }else{
             dispach(signin(formData, history))
+            setIsLoading(false)
        }
+       setIsLoading(false)
     }
     const handleChange =(e)=>{
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -45,16 +50,16 @@ function Auth() {
             plugin_name : "socialmedia"
         })
     })
-    const googleSucces = async (res)=>{
-        const result = res?.profileObj
-        const token = res?.tokenId
-        try {
-            dispach({ type:'AUTH', data: { result, token } })
-            history.push('/')
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // const googleSucces = async (res)=>{
+    //     const result = res?.profileObj
+    //     const token = res?.tokenId
+    //     try {
+    //         dispach({ type:'AUTH', data: { result, token } })
+    //         history.push('/')
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
     const googleFailure=(error)=>{
         console.log(error);
         console.log("Google sign In was not successful. try again");
@@ -80,10 +85,10 @@ function Auth() {
                     <Input name='password' label="Password" handleChange={handleChange} type={ showPassword ? 'text' : "password" } handleShowPassword={handleShowPassword}  />
                     { isSignup &&  <Input name='confirmPassword' label="Repeat Password" handleChange={handleChange} type={ showPassword ? 'text' : "password" } handleShowPassword={handleShowPassword}  />}
                 </Grid> 
-                    <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+                  { isLoading?  <Typography variant='h5'>wet a moment</Typography>:  <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
                         { isSignup ? 'Sign Up' : 'Sign In' }
-                    </Button>
-                    <GoogleLogin 
+                    </Button>}
+                    {/* <GoogleLogin 
                         clientId='636963187326-sshc5646ulqo2o4m4c5srktqatuqbprs.apps.googleusercontent.com'
                         render={(renderProps)=>(
                             <Button 
@@ -101,7 +106,7 @@ function Auth() {
                         onSuccess={googleSucces}
                         onFailure={googleFailure}
                         cookiePolicy = "single_host_origin"
-                    />
+                    /> */}
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button onClick={swichtMode}>
