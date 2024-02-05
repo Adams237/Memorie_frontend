@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 import useSyles from './style'
 import { deletePost, likePost } from '../../../actions/posts'
 
-function Post({ post, setCurrentId }) {
+function Post({ post }) {
   const classes = useSyles()
   const dispach = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
